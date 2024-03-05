@@ -17,7 +17,7 @@ public class Main {
 
 //        bubbleSort.sort(array);
 //        selectionSort.sort(array);
-//          insertionSort.sort(array);
+//        insertionSort.sort(array);
         quickSort.sort(array);
         System.out.println(Arrays.toString(array));
 
