@@ -26,6 +26,7 @@ public class Graph {
 
     public void addNode(String label) {
         var node = new Node(label);
+        vertices.putIfAbsent(label, node);
         adjacencyMatrix.putIfAbsent(node, new ArrayList<>());
 
     }
@@ -69,26 +70,23 @@ public class Graph {
 
     public void traverseDepthFirst(String root) {
         if (vertices.get(root) == null) return;
-        traverseDepthFirst(vertices.get(root), new HashSet<>());
+        traverseDepthFirst(vertices.get(root));
 
     }
 
-    private void traverseDepthFirst(Node root, Set<Node> visited) {
+    private void traverseDepthFirst(Graph.Node root) {
         System.out.println(root);
-        visited.add(root);
         var list = adjacencyMatrix.get(root);
         for (var node : list) {
-            if (!visited.contains(node))
-                traverseDepthFirst(node, visited);
+            traverseDepthFirst(node);
         }
-
     }
 
     public void traverseBreadthFirst(String root) {
         var node = vertices.get(root);
         if (node == null) return;
-        Set<Node> visited = new HashSet<>();
-        Queue<Node> queue = new ArrayDeque<>();
+        Set<Graph.Node> visited = new HashSet<>();
+        Queue<Graph.Node> queue = new ArrayDeque<>();
         queue.add(node);
         while (!queue.isEmpty()) {
             var current = queue.remove();
